@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 06:59:40 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/20 06:59:43 by rgallard         ###   ########.fr       */
+/*   Updated: 2021/09/20 19:56:05 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int		ft_exit(char *str)
+int	ft_exit(char *str)
 {
 	write(1, "[so_long] ", 10);
 	ft_putstr_fd(str, 1);
@@ -21,17 +21,17 @@ int		ft_exit(char *str)
 	return (0);
 }
 
-int		clear_config(t_map *map)
+int	clear_config(t_map *map)
 {
-	if (map->mapPtr)
+	if (map->mapptr)
 	{
-		free(map->mapPtr);
-		map->mapPtr = NULL;
+		free(map->mapptr);
+		map->mapptr = NULL;
 	}
 	return (0);
 }
 
-int		clear_window(t_game *game)
+int	clear_window(t_game *game)
 {
 	if (game->img.ptr)
 		mlx_destroy_image(game->mlx.ptr, game->img.ptr);
@@ -40,7 +40,7 @@ int		clear_window(t_game *game)
 	return (0);
 }
 
-int		exit_game(t_game *game, ...)
+int	exit_game(t_game *game, ...)
 {
 	va_list		args;
 	char		*msg;
@@ -49,21 +49,19 @@ int		exit_game(t_game *game, ...)
 	clear_config(&game->map);
 	clear_window(game);
 	va_start(args, game);
-
-	if ((msg = va_arg(args, char*)))
+	msg = va_arg(args, char *);
+	if (msg)
 		printf("%s\n", msg);
 	else
 		printf("[so_long] EXIT Default\n");
-
 	code = va_arg(args, int);
-
 	va_end(args);
 	printf("code: %d \n", code);
 	exit(code);
 	return (code);
 }
 
-int		exit_cross(t_game *game)
+int	exit_cross(t_game *game)
 {
 	clear_config(&game->map);
 	clear_window(game);

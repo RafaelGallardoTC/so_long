@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   extra_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:01 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/14 23:54:28 by rgallard         ###   ########.fr       */
+/*   Updated: 2021/09/20 19:55:13 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int		ft_check_extension(char *path, char *ext)
+int	ft_check_extension(char *path, char *ext)
 {
-	int		pathlen;
-	int		extlen;
+	int	pathlen;
+	int	extlen;
 
 	pathlen = ft_strlen(path);
 	extlen = ft_strlen(ext);
@@ -27,7 +27,7 @@ int		ft_check_extension(char *path, char *ext)
 		&& *(path + pathlen - 4) == *(ext + extlen - 4));
 }
 
-void		get_map_size(char *map_path, t_game *game)
+void	get_map_size(char *map_path, t_game *game)
 {
 	char	*line;
 	int		fd;
@@ -39,9 +39,8 @@ void		get_map_size(char *map_path, t_game *game)
 	while (TRUE)
 	{
 		r = get_next_line(fd, &line);
-
 		if (!r)
-			break;
+			break ;
 		if (game->map.y == 0 && *line)
 		{
 			while (*line)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderUtils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:18:04 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/17 14:37:01 by rgallard         ###   ########.fr       */
+/*   Updated: 2021/09/20 19:51:57 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 void	ft_draw_tile(t_game *game, int i, int j)
 {
 	game->x = 0;
-	while (game->x < game->TILE_SIZE)
+	while (game->x < game->tile_size)
 	{
 		game->y = 0;
-		while (game->y < game->TILE_SIZE)
+		while (game->y < game->tile_size)
 		{
 			// if (game->player.x == game->exit.x && game->player.y == game->exit.y
 			// 	&& i == game->player.x && j == game->player.y)
@@ -41,27 +41,28 @@ void	ft_draw_tile(t_game *game, int i, int j)
 */
 void	ft_selectsprite(t_game *game, int i, int j)
 {
-	if (game->map.mapPtr[i][j] == '1')
+	if (game->map.mapptr[i][j] == '1')
 		game->sprite = game->texwall;
-	else if (game->map.mapPtr[i][j] == 'C')
+	else if (game->map.mapptr[i][j] == 'C')
 		game->sprite = game->texitem;
-	else if (game->map.mapPtr[i][j] == 'E')
+	else if (game->map.mapptr[i][j] == 'E')
 		game->sprite = game->texexit;
 }
 
 void	ft_putspritepixel(t_game *game, int i, int j)
 {
-	game->texx = (int)((float)game->y / game->TILE_SIZE * game->sprite.width);
-	game->texy = (int)((float)game->x / game->TILE_SIZE * game->sprite.height);
-	if (game->map.mapPtr[i][j])
+	game->texx = (int)((float)game->y / game->tile_size * game->sprite.width);
+	game->texy = (int)((float)game->x / game->tile_size * game->sprite.height);
+	if (game->map.mapptr[i][j])
 	{
 		if (ft_mlx_get_color(&game->sprite, game->texx, game->texy) != NONE)
-			my_mlx_pixel_put(&game->img, j * game->TILE_SIZE + game->y, i * game->TILE_SIZE + game->x,
-							ft_mlx_get_color(&game->sprite, game->texx, game->texy));
+			my_mlx_pixel_put(&game->img, j * game->tile_size + game->y,
+				i * game->tile_size + game->x,
+				ft_mlx_get_color(&game->sprite, game->texx, game->texy));
 	}
 }
 
-int		ft_renderMap(t_game *game)
+int	ft_rendermap(t_game *game)
 {
 	game->i = 0;
 	while (game->i < game->map.y)
@@ -77,24 +78,28 @@ int		ft_renderMap(t_game *game)
 	return (0);
 }
 
-int		ft_renderPlayer(t_game *game)
+int	ft_renderplayer(t_game *game)
 {
-	int		in_x = 0;
-	int		in_y = 0;
+	int	in_x;
+	int	in_y;
 
+	in_x = 0;
+	in_y = 0;
 	game->sprite = game->texpl;
-	while (in_x < game->TILE_SIZE)
+	while (in_x < game->tile_size)
 	{
 		in_y = 0;
-		while (in_y < game->TILE_SIZE)
+		while (in_y < game->tile_size)
 		{
-
-			game->texx = (int)((float)in_y / game->TILE_SIZE * game->sprite.width);
-			game->texy = (int)((float)in_x / game->TILE_SIZE * game->sprite.height);
-
-			if (ft_mlx_get_color(&game->sprite, game->texx, game->texy) != 0xFF000000)
-				my_mlx_pixel_put(&game->img, game->player.x + in_y, game->player.y + in_x,
-								ft_mlx_get_color(&game->sprite, game->texx, game->texy));
+			game->texx = (int)((float)in_y
+					/ game->tile_size * game->sprite.width);
+			game->texy = (int)((float)in_x
+					/ game->tile_size * game->sprite.height);
+			if (ft_mlx_get_color(&game->sprite, game->texx, game->texy)
+				!= 0xFF000000)
+				my_mlx_pixel_put(&game->img, game->player.x + in_y,
+					game->player.y + in_x,
+					ft_mlx_get_color(&game->sprite, game->texx, game->texy));
 			in_y++;
 		}
 		in_x++;
@@ -116,4 +121,3 @@ void	ft_putmoves(t_game *game)
 	free(line);
 	free(num);
 }
-

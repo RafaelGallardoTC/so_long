@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:47 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/16 10:39:51 by rgallard         ###   ########.fr       */
+/*   Updated: 2021/09/20 19:47:13 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,18 @@
 
 typedef struct s_player
 {
-	int 	x;
+	int		x;
 	int		y;
-	int		turnDir; 		/* -1 if left, +1 if right */
-	int		walkDir; 		/* -1 if back, +1 if front */
-	double	moveSpeed;
+	int		turndir;
+	int		walkdir;
+	double	movespeed;
 	int		moves;
 }	t_player;
 
 typedef struct s_map
 {
 	char	*map_path;
-	char	**mapPtr;
+	char	**mapptr;
 	int		rectangular;
 	int		x;
 	int		y;
@@ -85,7 +85,7 @@ typedef struct s_mlx
 	void	*win;
 }	t_mlx;
 
-typedef	struct s_exit
+typedef struct s_exit
 {
 	char	*msg;
 	int		code;
@@ -93,7 +93,7 @@ typedef	struct s_exit
 	int		y;
 }	t_exit;
 
-typedef	struct s_game
+typedef struct s_game
 {
 	int				i;
 	int				j;
@@ -101,9 +101,9 @@ typedef	struct s_game
 	int				y;
 	int				texx;
 	int				texy;
-	int				TILE_SIZE;
-	int				WINDOW_WIDTH;
-	int				WINDOW_HEIGHT;
+	int				tile_size;
+	int				window_width;
+	int				window_height;
 	t_player		player;
 	t_map			map;
 	t_mlx			mlx;
@@ -114,7 +114,7 @@ typedef	struct s_game
 	t_img			texitem;
 	t_img			texexit;
 	t_img			texfloor;
-} t_game;
+}	t_game;
 
 int				found_wall(int x, int y, t_game *game);
 int				found_collect(int x, int y, t_game *game);
