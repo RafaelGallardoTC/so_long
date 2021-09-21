@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 11:54:12 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/20 19:54:31 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/20 22:28:30 by rgallard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ int	get_next_line(int fd, char **line)
 	if (fd < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
 	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!(buffer))
+	if (!buffer)
 		return (-1);
-	s_mem[fd] = s_mem[fd] == NULL ? ft_strdup("") : s_mem[fd];
+	if (s_mem[fd] == NULL)
+		s_mem[fd] = ft_strdup("");
 	rd = read(fd, buffer, BUFFER_SIZE);
 	while (rd > 0)
 	{
@@ -72,6 +73,7 @@ int	get_next_line(int fd, char **line)
 		s_mem[fd] = tmp;
 		if (ft_strchr(s_mem[fd], '\n'))
 			break ;
+		rd = read(fd, buffer, BUFFER_SIZE);
 	}
 	free(buffer);
 	return (output(rd, fd, s_mem, line));

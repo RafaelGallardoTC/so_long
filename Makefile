@@ -1,7 +1,6 @@
 SRC		=		main \
 				winUtils \
 				renderUtils \
-				colorUtils \
 				key_hooks \
 				tools \
 				config \

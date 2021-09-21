@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   winUtils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:56 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/20 19:47:41 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/21 01:28:50 by rgallard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	create_win(t_game *game)
+int	create_win(t_game *gm)
 {
-	game->mlx.ptr = mlx_init();
-	game->mlx.win = mlx_new_window(game->mlx.ptr, game->window_width,
-			game->window_height, "so_long");
-	game->img.ptr = mlx_new_image(game->mlx.ptr,
-			game->window_width, game->window_height);
-	game->img.addr = mlx_get_data_addr(game->img.ptr, &game->img.bpp,
-			&game->img.line_len, &game->img.endian);
+	gm->mlx.ptr = mlx_init();
+	gm->mlx.win = mlx_new_window(gm->mlx.ptr, gm->win_width,
+			gm->win_height, "so_long");
+	gm->img.ptr = mlx_new_image(gm->mlx.ptr, gm->win_width, gm->win_height);
+	gm->img.addr = mlx_get_data_addr(gm->img.ptr, &gm->img.bpp,
+			&gm->img.line_len, &gm->img.endian);
 	return (0);
 }
 
@@ -32,7 +31,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-unsigned int	ft_mlx_get_color(t_img *data, int x, int y)
+unsigned int	mlx_get_color(t_img *data, int x, int y)
 {
 	char	*dst;
 
@@ -40,16 +39,16 @@ unsigned int	ft_mlx_get_color(t_img *data, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-void	ft_set_tile_size(t_game *game)
+void	set_tile_size(t_game *gm)
 {
 	int		nativey;
 	int		nativex;
 
-	mlx_get_screen_size(game->mlx.ptr, &nativex, &nativey);
-	if (game->map.y >= game->map.x)
-		game->tile_size = (int)(nativey * 0.80 / game->map.y);
+	mlx_get_screen_size(gm->mlx.ptr, &nativex, &nativey);
+	if (gm->map.y >= gm->map.x)
+		gm->tile_size = (int)(nativey * 0.80 / gm->map.y);
 	else
-		game->tile_size = (int)(nativex * 0.80 / game->map.x);
-	game->window_width = (int)game->tile_size * game->map.x;
-	game->window_height = (int)game->tile_size * game->map.y;
+		gm->tile_size = (int)(nativex * 0.80 / gm->map.x);
+	gm->win_width = (int)gm->tile_size * gm->map.x;
+	gm->win_height = (int)gm->tile_size * gm->map.y;
 }

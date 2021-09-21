@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:34 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/20 19:57:34 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/21 01:15:54 by rgallard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+/*
+* x = COLUMNS and y = ROWS
+*/
 int	map_init(t_map *map, int x, int y)
 {
 	int		i;
@@ -19,38 +22,43 @@ int	map_init(t_map *map, int x, int y)
 	int		fd;
 	char	*line;
 
-	fd = open(map->map_path, O_RDONLY);
-	map->mapptr = (char **)malloc(y * sizeof(char *));
-	if (map->mapptr == NULL)
-		return (-1);
 	i = 0;
+	fd = open(map->map_path, O_RDONLY);
+	map->map_ptr = (char **)malloc(y * sizeof(char *));
+	if (map->map_ptr == NULL)
+		return (-1);
 	while (i < y)
 	{
-		map->mapptr[i] = (char *)ft_calloc(x, sizeof(int));
-		if (map->mapptr[i] == NULL)
+		map->map_ptr[i] = (char *)ft_calloc(x, sizeof(int));
+		if (map->map_ptr[i] == NULL)
 			return (-1);
 		r = get_next_line(fd, &line);
-		ft_memcpy(map->mapptr[i], line, x);
+		ft_memcpy(map->map_ptr[i], line, x);
 		i++;
 	}
 	close(fd);
 	return (0);
 }
 
-void	setup(t_game *game, char *map_path)
+void	setup(t_game *gm, char *map_path)
 {
-	get_map_size(map_path, game);
-	ft_set_tile_size(game);
-	game->player.movespeed = game->tile_size;
-	game->player.turndir = 0;
-	game->player.walkdir = 0;
-	game->player.moves = 0;
-	game->map.map_path = map_path;
-	//game->state = 1;
-	//game->exit.x = -1;
-	//game->exit.y = -1;
-	//game->player.items = 0;
-	//game->player.goal = 0;
-	//game->state = 1;
-	//game->keys.check = 1;
+	get_map_size(map_path, gm);
+	set_tile_size(gm);
+	gm->player.mov_speed = gm->tile_size;
+	gm->player.turn_dir = 0;
+	gm->player.walk_dir = 0;
+	gm->player.moves = 0;
+	gm->map.map_path = map_path;
+}
+
+void	putmoves(t_game *gm)
+{
+	char	*num;
+	char	*line;
+
+	num = ft_itoa(gm->player.moves);
+	line = ft_strjoin("Move Count: ", num);
+	mlx_string_put(gm->mlx.ptr, gm->mlx.win, 10, 10, 0xFFFFFF, line);
+	char_arr_free_null(line);
+	char_arr_free_null(num);
 }

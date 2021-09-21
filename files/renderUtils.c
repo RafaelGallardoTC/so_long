@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderUtils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:18:04 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/20 19:51:57 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/20 23:36:18 by rgallard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,109 +15,89 @@
 /*
 *	Draws a full square tile with the appropiated texture.
 */
-void	ft_draw_tile(t_game *game, int i, int j)
+void	draw_tile(t_game *gm, int i, int j)
 {
-	game->x = 0;
-	while (game->x < game->tile_size)
+	gm->x = 0;
+	while (gm->x < gm->tile_size)
 	{
-		game->y = 0;
-		while (game->y < game->tile_size)
+		gm->y = 0;
+		while (gm->y < gm->tile_size)
 		{
-			// if (game->player.x == game->exit.x && game->player.y == game->exit.y
-			// 	&& i == game->player.x && j == game->player.y)
-			// 	game->sprite = game->texexit;
-			// else
-			game->sprite = game->texfloor;
-			ft_selectsprite(game, i, j);
-			ft_putspritepixel(game, i, j);
-			game->y++;
+			gm->sprite = gm->tx_floor;
+			selectsprite(gm, i, j);
+			putspritepixel(gm, i, j);
+			gm->y++;
 		}
-		game->x++;
+		gm->x++;
 	}
 }
 
 /*
 *	Matches the loaded texture with the corresponding map tile,
 */
-void	ft_selectsprite(t_game *game, int i, int j)
+void	selectsprite(t_game *gm, int i, int j)
 {
-	if (game->map.mapptr[i][j] == '1')
-		game->sprite = game->texwall;
-	else if (game->map.mapptr[i][j] == 'C')
-		game->sprite = game->texitem;
-	else if (game->map.mapptr[i][j] == 'E')
-		game->sprite = game->texexit;
+	if (gm->map.map_ptr[i][j] == '1')
+		gm->sprite = gm->tx_wall;
+	else if (gm->map.map_ptr[i][j] == 'C')
+		gm->sprite = gm->tx_item;
+	else if (gm->map.map_ptr[i][j] == 'E')
+		gm->sprite = gm->tx_exit;
 }
 
-void	ft_putspritepixel(t_game *game, int i, int j)
+void	putspritepixel(t_game *gm, int i, int j)
 {
-	game->texx = (int)((float)game->y / game->tile_size * game->sprite.width);
-	game->texy = (int)((float)game->x / game->tile_size * game->sprite.height);
-	if (game->map.mapptr[i][j])
+	gm->tx_x = (int)((float)gm->y / gm->tile_size * gm->sprite.width);
+	gm->tx_y = (int)((float)gm->x / gm->tile_size * gm->sprite.height);
+	if (gm->map.map_ptr[i][j])
 	{
-		if (ft_mlx_get_color(&game->sprite, game->texx, game->texy) != NONE)
-			my_mlx_pixel_put(&game->img, j * game->tile_size + game->y,
-				i * game->tile_size + game->x,
-				ft_mlx_get_color(&game->sprite, game->texx, game->texy));
+		if (mlx_get_color(&gm->sprite, gm->tx_x, gm->tx_y) != NONE)
+			my_mlx_pixel_put(&gm->img, j * gm->tile_size + gm->y,
+				i * gm->tile_size + gm->x,
+				mlx_get_color(&gm->sprite, gm->tx_x, gm->tx_y));
 	}
 }
 
-int	ft_rendermap(t_game *game)
+int	render_map(t_game *gm)
 {
-	game->i = 0;
-	while (game->i < game->map.y)
+	gm->i = 0;
+	while (gm->i < gm->map.y)
 	{
-		game->j = 0;
-		while (game->j < game->map.x)
+		gm->j = 0;
+		while (gm->j < gm->map.x)
 		{
-			ft_draw_tile(game, game->i, game->j);
-			game->j++;
+			draw_tile(gm, gm->i, gm->j);
+			gm->j++;
 		}
-		game->i++;
+		gm->i++;
 	}
 	return (0);
 }
 
-int	ft_renderplayer(t_game *game)
+int	render_player(t_game *gm)
 {
-	int	in_x;
-	int	in_y;
+	int		x;
+	int		y;
 
-	in_x = 0;
-	in_y = 0;
-	game->sprite = game->texpl;
-	while (in_x < game->tile_size)
+	x = 0;
+	gm->sprite = gm->tx_pl;
+	while (x < gm->tile_size)
 	{
-		in_y = 0;
-		while (in_y < game->tile_size)
+		y = 0;
+		while (y < gm->tile_size)
 		{
-			game->texx = (int)((float)in_y
-					/ game->tile_size * game->sprite.width);
-			game->texy = (int)((float)in_x
-					/ game->tile_size * game->sprite.height);
-			if (ft_mlx_get_color(&game->sprite, game->texx, game->texy)
-				!= 0xFF000000)
-				my_mlx_pixel_put(&game->img, game->player.x + in_y,
-					game->player.y + in_x,
-					ft_mlx_get_color(&game->sprite, game->texx, game->texy));
-			in_y++;
+			gm->tx_x = (int)((float)y / gm->tile_size
+					* gm->sprite.width);
+			gm->tx_y = (int)((float)x / gm->tile_size
+					* gm->sprite.height);
+			if (mlx_get_color(&gm->sprite, gm->tx_x, gm->tx_y) != NONE)
+				my_mlx_pixel_put(&gm->img, gm->player.x + y,
+					gm->player.y + x,
+					mlx_get_color(&gm->sprite, gm->tx_x, gm->tx_y));
+			y++;
 		}
-		in_x++;
+		x++;
 	}
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win, game->img.ptr, 0, 0);
-	//ft_putmoves(game);
-	//mlx_do_sync(game->mlx.ptr);
+	mlx_put_image_to_window(gm->mlx.ptr, gm->mlx.win, gm->img.ptr, 0, 0);
 	return (0);
-}
-
-void	ft_putmoves(t_game *game)
-{
-	char	*num;
-	char	*line;
-
-	num = ft_itoa(game->player.moves);
-	line = ft_strjoin("Move Count: ", num);
-	mlx_string_put(game->mlx.ptr, game->mlx.win, 10, 10, 0xFFFFFF, line);
-	free(line);
-	free(num);
 }

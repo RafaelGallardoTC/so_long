@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:42 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/20 19:48:28 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/21 01:58:18 by rgallard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,72 +15,52 @@
 /*
 *	Updates Player's position
 */
-void	playerupdate(t_game *game)
+void	player_update(t_game *gm)
 {
-	int		movestepx;
-	int		movestepy;
-	int		newplayerx;
-	int		newplayery;
-
-	movestepx = game->player.turndir * game->player.movespeed;
-	movestepy = game->player.walkdir * game->player.movespeed;
-	newplayerx = game->player.x + movestepx;
-	newplayery = game->player.y + movestepy;
-	if (found_wall(newplayerx, newplayery, game) == FALSE)
+	gm->player.mv_stepx = gm->player.turn_dir * gm->player.mov_speed;
+	gm->player.mv_stepy = gm->player.walk_dir * gm->player.mov_speed;
+	gm->player.new_playerx = gm->player.x + gm->player.mv_stepx;
+	gm->player.new_playery = gm->player.y + gm->player.mv_stepy;
+	gm->tmp_arr = ft_calloc(3, sizeof(int));
+	find_obstacle(gm->player.new_playerx, gm->player.new_playery, gm);
+	if (gm->tmp_arr[0] == FALSE)
 	{
-		game->player.x = newplayerx;
-		game->player.y = newplayery;
+		gm->player.x = gm->player.new_playerx;
+		gm->player.y = gm->player.new_playery;
 	}
-	if (found_exit(newplayerx, newplayery, game))
-		exit_game(game, "You found the exit! good bye", 0);
-	else if (found_collect(game->player.x, game->player.y, game))
-		game->map.mapptr[game->player.y
-			/ game->tile_size][game->player.x / game->tile_size] = '0';
-	game->player.turndir = 0;
-	game->player.walkdir = 0;
+	if (gm->tmp_arr[2] == TRUE)
+	{
+		char_arr_free_null(gm->tmp_arr);
+		exit_game(gm, "You found the exit! good bye", 0);
+	}
+	find_obstacle(gm->player.x, gm->player.y, gm);
+	if (gm->tmp_arr[1] == TRUE)
+		gm->map.map_ptr[gm->player.y / gm->tile_size][gm->player.x
+			/ gm->tile_size] = '0';
+	gm->player.turn_dir = 0;
+	gm->player.walk_dir = 0;
+	char_arr_free_null(gm->tmp_arr);
 }
 
-int	found_wall(int x, int y, t_game *game)
+/*
+*	Search for wall "list[0]", collect "list[1]", exit "list[2]"
+*/
+void	find_obstacle(int x, int y, t_game *gm)
 {
-	int	mapgridindexx;
-	int	mapgridindexy;
-
-	if (x < 0 || x > game->window_width || y < 0 || y > game->window_height)
-		return (TRUE);
-	mapgridindexx = x / game->tile_size;
-	mapgridindexy = y / game->tile_size;
-	if (game->map.mapptr[mapgridindexy][mapgridindexx] == '1')
-		return (TRUE);
+	if (x < 0 || x > gm->win_width || y < 0 || y > gm->win_height)
+		gm->tmp_arr[0] = TRUE;
+	gm->map.grid_index_x = x / gm->tile_size;
+	gm->map.grid_index_y = y / gm->tile_size;
+	if (gm->map.map_ptr[gm->map.grid_index_y][gm->map.grid_index_x] == '1')
+		gm->tmp_arr[0] = TRUE;
+	else if (gm->map.map_ptr[gm->map.grid_index_y][gm->map.grid_index_x] == 'C')
+		gm->tmp_arr[1] = TRUE;
+	else if (gm->map.map_ptr[gm->map.grid_index_y][gm->map.grid_index_x] == 'E')
+		gm->tmp_arr[2] = TRUE;
 	else
-		return (FALSE);
-}
-
-int	found_collect(int x, int y, t_game *game)
-{
-	int	mapgridindexx;
-	int	mapgridindexy;
-
-	if (x < 0 || x > game->window_width || y < 0 || y > game->window_height)
-		return (FALSE);
-	mapgridindexx = x / game->tile_size;
-	mapgridindexy = y / game->tile_size;
-	if (game->map.mapptr[mapgridindexy][mapgridindexx] == 'C')
-		return (TRUE);
-	else
-		return (FALSE);
-}
-
-int	found_exit(int x, int y, t_game *game)
-{
-	int	mapgridindexx;
-	int	mapgridindexy;
-
-	if (x < 0 || x > game->window_width || y < 0 || y > game->window_height)
-		return (FALSE);
-	mapgridindexx = x / game->tile_size;
-	mapgridindexy = y / game->tile_size;
-	if (game->map.mapptr[mapgridindexy][mapgridindexx] == 'E')
-		return (TRUE);
-	else
-		return (FALSE);
+	{
+		gm->tmp_arr[0] = FALSE;
+		gm->tmp_arr[1] = FALSE;
+		gm->tmp_arr[2] = FALSE;
+	}
 }

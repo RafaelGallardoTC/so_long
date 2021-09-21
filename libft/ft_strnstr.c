@@ -16,13 +16,13 @@ char	*ft_strnstr(const char *str, const char *p, size_t len)
 {
 	size_t	n_len;
 
-	n_len = ft_strlen((char*)p);
+	n_len = ft_strlen((char *)p);
 	if (*p == '\0')
-		return ((char*)str);
+		return ((char *)str);
 	while (*str && len-- >= n_len)
 	{
 		if (0 == ft_strncmp(str, p, n_len))
-			return ((char*)str);
+			return ((char *)str);
 		str++;
 	}
 	return (NULL);

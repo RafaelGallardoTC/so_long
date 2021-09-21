@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 06:59:40 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/20 19:56:05 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/21 02:19:56 by rgallard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,29 @@ int	ft_exit(char *str)
 
 int	clear_config(t_map *map)
 {
-	if (map->mapptr)
-	{
-		free(map->mapptr);
-		map->mapptr = NULL;
-	}
+	free(map->map_ptr);
+	map->map_ptr = NULL;
 	return (0);
 }
 
-int	clear_window(t_game *game)
+int	clear_window(t_game *gm)
 {
-	if (game->img.ptr)
-		mlx_destroy_image(game->mlx.ptr, game->img.ptr);
-	if (game->mlx.ptr && game->mlx.win)
-		mlx_destroy_window(game->mlx.ptr, game->mlx.win);
+	if (gm->img.ptr)
+		mlx_destroy_image(gm->mlx.ptr, gm->img.ptr);
+	if (gm->mlx.ptr && gm->mlx.win)
+		mlx_destroy_window(gm->mlx.ptr, gm->mlx.win);
 	return (0);
 }
 
-int	exit_game(t_game *game, ...)
+int	exit_game(t_game *gm, ...)
 {
 	va_list		args;
 	char		*msg;
 	int			code;
 
-	clear_config(&game->map);
-	clear_window(game);
-	va_start(args, game);
+	clear_config(&gm->map);
+	clear_window(gm);
+	va_start(args, gm);
 	msg = va_arg(args, char *);
 	if (msg)
 		printf("%s\n", msg);
@@ -61,10 +58,10 @@ int	exit_game(t_game *game, ...)
 	return (code);
 }
 
-int	exit_cross(t_game *game)
+int	exit_cross(t_game *gm)
 {
-	clear_config(&game->map);
-	clear_window(game);
+	clear_config(&gm->map);
+	clear_window(gm);
 	printf("[so_long] EXIT SUCCESS\n");
 	exit(0);
 	return (0);
