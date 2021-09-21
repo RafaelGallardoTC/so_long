@@ -6,7 +6,7 @@
 /*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:47 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/21 01:59:25 by rgallard         ###   ########.fr       */
+/*   Updated: 2021/09/21 21:27:57 by rgallard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int				ft_check_extension(char *path, char *ext);
 int				found_wall(int x, int y, t_game *gm);
 int				found_collect(int x, int y, t_game *gm);
 int				found_exit(int x, int y, t_game *gm);
-int				clear_config(t_map *map);
+int				clear_config(t_game *gm);
 int				clear_window(t_game *gm);
 void			player_update(t_game *gm);
 void			check_cepp(t_game *gm, int *ch_list, int i, int j);

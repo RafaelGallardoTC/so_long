@@ -6,7 +6,7 @@
 /*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 06:59:40 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/21 02:19:56 by rgallard         ###   ########.fr       */
+/*   Updated: 2021/09/21 17:43:45 by rgallard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,25 @@ int	ft_exit(char *str)
 	return (0);
 }
 
-int	clear_config(t_map *map)
+int	clear_config(t_game *gm)
 {
-	free(map->map_ptr);
-	map->map_ptr = NULL;
+	int	i;
+
+	i = 0;
+	while (i < gm->map.y)
+	{
+		if (gm->map.map_ptr[i])
+		{
+			free(gm->map.map_ptr[i]);
+			gm->map.map_ptr[i] = NULL;
+		}
+		i++;
+	}
+	if (gm->map.map_ptr)
+	{
+		free(gm->map.map_ptr);
+		gm->map.map_ptr = NULL;
+	}
 	return (0);
 }
 
@@ -43,7 +58,7 @@ int	exit_game(t_game *gm, ...)
 	char		*msg;
 	int			code;
 
-	clear_config(&gm->map);
+	clear_config(gm);
 	clear_window(gm);
 	va_start(args, gm);
 	msg = va_arg(args, char *);
@@ -60,7 +75,7 @@ int	exit_game(t_game *gm, ...)
 
 int	exit_cross(t_game *gm)
 {
-	clear_config(&gm->map);
+	clear_config(gm);
 	clear_window(gm);
 	printf("[so_long] EXIT SUCCESS\n");
 	exit(0);

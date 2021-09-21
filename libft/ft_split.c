@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static char		**ft_malloc_error(char **tab)
+static char	**ft_malloc_error(char **tab)
 {
 	unsigned int	i;
 
@@ -26,7 +26,7 @@ static char		**ft_malloc_error(char **tab)
 	return (NULL);
 }
 
-static	int		pieces(char const *s, char c)
+static	int	pieces(char const *s, char c)
 {
 	int		count;
 	int		valid;
@@ -62,7 +62,7 @@ static	size_t	p_size(char const *s, char c)
 	return (size);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	unsigned int	i;
 	unsigned int	nb_parts;
@@ -72,13 +72,15 @@ char			**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	nb_parts = pieces(s, c);
-	if (!(splitted = (char**)malloc(sizeof(char*) * (nb_parts + 1))))
+	splitted = (char **)malloc(sizeof(char *) * (nb_parts + 1));
+	if (!splitted)
 		return (NULL);
 	while (i < nb_parts)
 	{
 		while ((*s == c) && s)
 			s++;
-		if (!(splitted[i] = ft_substr((char*)s, 0, p_size(s, c))))
+		splitted[i] = ft_substr((char *)s, 0, p_size(s, c));
+		if (!splitted[i])
 			return (ft_malloc_error(splitted));
 		s += p_size(s, c);
 		++i;

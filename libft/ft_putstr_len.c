@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-int		ft_putstr_len(const char *str, size_t len)
+int	ft_putstr_len(const char *str, size_t len)
 {
-	const	char	*s;
-	int				i;
+	const char	*s;
+	int			i;
 
 	s = str;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:18:24 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/21 02:40:55 by rgallard         ###   ########.fr       */
+/*   Updated: 2021/09/21 22:54:19 by rgallard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	drawit(t_game *gm)
 int	main(int argc, char **argv)
 {
 	t_game	gm;
+
 	if (argc > 2 || argc == 1)
 		ft_exit("Invalid number of arguments.");
 	if (!(ft_check_extension(argv[1], ".ber")))

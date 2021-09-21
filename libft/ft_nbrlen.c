@@ -17,7 +17,7 @@
 **	"base" i
 */
 
-size_t		ft_nbrlen(long long int nb, int base)
+size_t	ft_nbrlen(long long int nb, int base)
 {
 	size_t		res;
 

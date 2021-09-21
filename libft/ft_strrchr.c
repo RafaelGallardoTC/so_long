@@ -23,5 +23,8 @@ char	*ft_strrchr(const char *s, int c)
 			save = (char *)s;
 		s++;
 	}
-	return (*s == (char)c ? (char *)s : save);
+	if (*s == (char)c)
+		return ((char *)s);
+	else
+		return (save);
 }
