@@ -6,7 +6,7 @@
 /*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:42 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/22 21:48:40 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/22 22:15:05 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	player_update(t_game *gm)
 		gm->player.x = gm->player.new_playerx;
 		gm->player.y = gm->player.new_playery;
 	}
-	printf("%i\n", gm->n_collect);
 	if (gm->tmp_arr[2] == TRUE && gm->n_collect == 0)
 	{
 		char_arr_free_null(gm->tmp_arr);

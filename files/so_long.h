@@ -6,7 +6,7 @@
 /*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:47 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/22 21:40:27 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/22 22:08:55 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define MAGENTA 0x00FF00FF
 # define YELLOW 0x00FFFF00
 # define CYAN 0x0000FFFF
-# define BUFF_SIZE 1
+# define BUFFER_SIZE 1
 # define TRUE 1
 # define FALSE 0
 # define KEY_ESC 53
