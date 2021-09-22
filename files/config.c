@@ -6,7 +6,7 @@
 /*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:34 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/22 19:49:29 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/22 20:07:35 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	map_init(t_map *map, int x, int y)
 		return (-1);
 	while (i < y)
 	{
-		map->map_ptr[i] = (char *)ft_calloc(x + 1, sizeof(char) );
+		map->map_ptr[i] = (char *)ft_calloc(x + 1, sizeof(char));
 		if (map->map_ptr[i] == NULL)
 			return (-1);
 		r = get_next_line(fd, &line);
@@ -38,7 +38,6 @@ int	map_init(t_map *map, int x, int y)
 		free(line);
 		i++;
 	}
-	// free(line);
 	map->map_ptr[i] = NULL;
 	close(fd);
 	return (0);

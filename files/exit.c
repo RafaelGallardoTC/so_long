@@ -6,7 +6,7 @@
 /*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 06:59:40 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/22 19:56:29 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/22 20:09:46 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	clear_config(t_game **gm)
 	{
 		if ((*gm)->map.map_ptr[i])
 		{
-			printf("**here* \n");
-			
 			free((*gm)->map.map_ptr[i]);
 			(*gm)->map.map_ptr[i] = NULL;
 		}
