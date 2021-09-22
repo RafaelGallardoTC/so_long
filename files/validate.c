@@ -6,7 +6,7 @@
 /*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:38 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/22 21:49:40 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/22 22:30:09 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	read_map(t_game *gm)
 	return (valid);
 }
 
-void	check_cepp(t_game *gm, int *ch_list, int i, int j)
+static void	check_cepp2(t_game *gm, int *ch_list, int i, int j)
 {
 	int		ch;
 
@@ -52,6 +52,14 @@ void	check_cepp(t_game *gm, int *ch_list, int i, int j)
 		ch_list[0] = 0;
 	else
 		ch_list[0] = 1;
+}
+
+void	check_cepp(t_game *gm, int *ch_list, int i, int j)
+{
+	int		ch;
+
+	ch = gm->map.map_ptr[i][j];
+	check_cepp2(gm, ch_list, i, j);
 	if (ch != 'E' && ch_list[1] != 1)
 		ch_list[1] = 0;
 	else
