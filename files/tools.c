@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:42 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/21 01:58:18 by rgallard         ###   ########.fr       */
+/*   Updated: 2021/09/22 21:48:40 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	player_update(t_game *gm)
 		gm->player.x = gm->player.new_playerx;
 		gm->player.y = gm->player.new_playery;
 	}
-	if (gm->tmp_arr[2] == TRUE)
+	printf("%i\n", gm->n_collect);
+	if (gm->tmp_arr[2] == TRUE && gm->n_collect == 0)
 	{
 		char_arr_free_null(gm->tmp_arr);
 		exit_game(gm, "You found the exit! good bye", 0);
@@ -54,7 +55,10 @@ void	find_obstacle(int x, int y, t_game *gm)
 	if (gm->map.map_ptr[gm->map.grid_index_y][gm->map.grid_index_x] == '1')
 		gm->tmp_arr[0] = TRUE;
 	else if (gm->map.map_ptr[gm->map.grid_index_y][gm->map.grid_index_x] == 'C')
+	{
+		gm->n_collect--;
 		gm->tmp_arr[1] = TRUE;
+	}
 	else if (gm->map.map_ptr[gm->map.grid_index_y][gm->map.grid_index_x] == 'E')
 		gm->tmp_arr[2] = TRUE;
 	else

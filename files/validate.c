@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:38 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/21 01:27:17 by rgallard         ###   ########.fr       */
+/*   Updated: 2021/09/22 21:49:40 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	check_cepp(t_game *gm, int *ch_list, int i, int j)
 	int		ch;
 
 	ch = gm->map.map_ptr[i][j];
+	if (ch == 'C')
+		gm->n_collect += 2;
 	if (ch != 'C' && ch_list[0] != 1)
 		ch_list[0] = 0;
 	else
