@@ -18,7 +18,6 @@ SRCS	= ft_atoi.c \
 		ft_strlcpy.c \
 		ft_strlen.c \
 		ft_strncmp.c \
-		ft_strrchr.c \
 		ft_tolower.c \
 		ft_toupper.c \
 		ft_strnstr.c \
@@ -42,20 +41,8 @@ SRCS	= ft_atoi.c \
 		ft_strnew.c \
 		ft_strdel.c
 
-BNSRCS = ft_lstnew.c \
-		ft_lstadd_front.c \
-		ft_lstsize.c \
-		ft_lstlast.c \
-		ft_lstadd_back.c \
-		ft_lstdelone.c \
-		ft_lstclear.c \
-		ft_lstiter.c \
-		ft_lstmap.c \
-
 
 OBJS	= $(SRCS:.c=.o)
-
-BNOBJS = $(BNSRCS:.c=.o)
 
 NAME	= libft.a
 
@@ -74,15 +61,10 @@ $(NAME):	$(OBJS)
 			@ar rc $(NAME) $(OBJS)
 			@ranlib $(NAME)
 
-bonus:		$(BNOBJS) $(OBJS)
-			@ar rc $(NAME) $(BNOBJS)
-			@ranlib $(NAME)
-
 all:		$(NAME)
 
 clean:
 			@$(RM) $(OBJS)
-			@$(RM) $(BNOBJS)
 
 fclean:		clean
 			@$(RM) $(NAME)

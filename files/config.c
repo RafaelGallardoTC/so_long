@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:34 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/22 20:07:35 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/22 21:29:10 by rgallard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	map_init(t_map *map, int x, int y)
 
 void	setup(t_game *gm, char *map_path)
 {
+	gm->map.x = 0;
+	gm->map.y = 0;
 	get_map_size(map_path, gm);
 	set_tile_size(gm);
 	gm->player.mov_speed = gm->tile_size;
