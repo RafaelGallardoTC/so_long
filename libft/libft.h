@@ -73,5 +73,8 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 t_list			*ft_lstlast(t_list *lst);
 t_list			*ft_lstnew(void *content);
+char			*ft_strsub(char const *s, unsigned int start, size_t len);
+char			*ft_strnew(size_t size);
+void			ft_strdel(char **as);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:34 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/21 01:15:54 by rgallard         ###   ########.fr       */
+/*   Updated: 2021/09/22 19:49:29 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 * x = COLUMNS and y = ROWS
 */
+
 int	map_init(t_map *map, int x, int y)
 {
 	int		i;
@@ -24,18 +25,21 @@ int	map_init(t_map *map, int x, int y)
 
 	i = 0;
 	fd = open(map->map_path, O_RDONLY);
-	map->map_ptr = (char **)malloc(y * sizeof(char *));
+	map->map_ptr = (char **)malloc(y * sizeof(char *) + 1);
 	if (map->map_ptr == NULL)
 		return (-1);
 	while (i < y)
 	{
-		map->map_ptr[i] = (char *)ft_calloc(x, sizeof(int));
+		map->map_ptr[i] = (char *)ft_calloc(x + 1, sizeof(char) );
 		if (map->map_ptr[i] == NULL)
 			return (-1);
 		r = get_next_line(fd, &line);
 		ft_memcpy(map->map_ptr[i], line, x);
+		free(line);
 		i++;
 	}
+	// free(line);
+	map->map_ptr[i] = NULL;
 	close(fd);
 	return (0);
 }
