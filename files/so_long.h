@@ -6,7 +6,7 @@
 /*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:47 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/22 22:08:55 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/22 23:09:53 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct s_game
 	int				win_height;
 	char			*tmp_arr;
 	int				n_collect;
+	int				fd;
 	t_player		player;
 	t_map			map;
 	t_mlx			mlx;

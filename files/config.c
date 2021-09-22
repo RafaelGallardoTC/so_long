@@ -6,7 +6,7 @@
 /*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:34 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/22 22:23:22 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/22 23:07:07 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int	map_init(t_map *map, int x, int y)
 
 	i = 0;
 	fd = open(map->map_path, O_RDONLY);
-	map->map_ptr = (char **)malloc(y * sizeof(char *) + 1);
+	map->map_ptr = (char **)malloc((y + 1) * sizeof(char *));
 	if (map->map_ptr == NULL)
 		return (-1);
 	while (i < y)
 	{
-		map->map_ptr[i] = (char *)malloc(sizeof(int) + x + 1);
+		map->map_ptr[i] = (char *)malloc(sizeof(char) + (x + 1));
 		if (map->map_ptr[i] == NULL)
 			return (-1);
 		r = get_next_line(fd, &line);

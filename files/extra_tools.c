@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallard <rgallard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 03:17:01 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/22 21:29:00 by rgallard         ###   ########.fr       */
+/*   Updated: 2021/09/22 23:10:07 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ int	ft_check_extension(char *path, char *ext)
 void	get_map_size(char *map_path, t_game *gm)
 {
 	char	*line;
-	int		fd;
 	int		r;
 	char	*tmp;
 
-	fd = open(map_path, O_RDONLY);
+	gm->fd = open(map_path, O_RDONLY);
 	while (TRUE)
 	{
-		r = get_next_line(fd, &line);
+		r = get_next_line(gm->fd, &line);
 		tmp = line;
 		if (!r)
 			break ;
@@ -52,7 +51,9 @@ void	get_map_size(char *map_path, t_game *gm)
 		gm->map.y++;
 		free(tmp);
 	}
-	close(fd);
+	if (tmp)
+		free(tmp);
+	close(gm->fd);
 }
 
 void	char_arr_free_null(char *arr)
