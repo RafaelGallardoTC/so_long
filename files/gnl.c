@@ -6,13 +6,13 @@
 /*   By: gfaviere <gfaviere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 11:54:12 by rgallard          #+#    #+#             */
-/*   Updated: 2021/09/22 20:08:54 by gfaviere         ###   ########.fr       */
+/*   Updated: 2021/09/22 20:10:48 by gfaviere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int		ft_new_line(char **s, char **line, int fd, int ret)
+int	ft_new_line(char **s, char **line, int fd, int ret)
 {
 	char	*tmp;
 	int		len;
@@ -39,7 +39,7 @@ int		ft_new_line(char **s, char **line, int fd, int ret)
 	return (1);
 }
 
-int		get_next_line(const int fd, char **line)
+int	get_next_line(const int fd, char **line)
 {
 	static char	*s[255];
 	char		buf[BUFF_SIZE + 1];
