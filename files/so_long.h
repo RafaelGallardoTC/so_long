@@ -54,7 +54,7 @@ typedef struct s_player
 	int		y;
 	int		turn_dir;
 	int		walk_dir;
-	double	mov_speed;
+	double		mov_speed;
 	int		moves;
 	int		mv_stepx;
 	int		mv_stepy;
@@ -64,8 +64,8 @@ typedef struct s_player
 
 typedef struct s_map
 {
-	char	*map_path;
-	char	**map_ptr;
+	char		*map_path;
+	char		**map_ptr;
 	int		rectangular;
 	int		grid_index_x;
 	int		grid_index_y;
@@ -78,8 +78,8 @@ typedef struct s_map
 */
 typedef struct s_img
 {
-	void	*ptr;
-	char	*addr;
+	void		*ptr;
+	char		*addr;
 	int		bpp;
 	int		line_len;
 	int		endian;
@@ -96,58 +96,58 @@ typedef struct s_mlx
 typedef struct s_exit
 {
 	char	*msg;
-	int		code;
-	int		x;
-	int		y;
+	int	code;
+	int	x;
+	int	y;
 }	t_exit;
 
 typedef struct s_game
 {
-	int				i;
-	int				j;
-	int				x;
-	int				y;
-	int				tx_x;
-	int				tx_y;
-	int				tile_size;
-	int				win_width;
-	int				win_height;
-	char			*tmp_arr;
-	int				n_collect;
-	int				fd;
-	t_player		player;
-	t_map			map;
-	t_mlx			mlx;
-	t_img			img;
-	t_img			sprite;
-	t_img			tx_wall;
-	t_img			tx_pl;
-	t_img			tx_item;
-	t_img			tx_exit;
-	t_img			tx_floor;
+	int		i;
+	int		j;
+	int		x;
+	int		y;
+	int		tx_x;
+	int		tx_y;
+	int		tile_size;
+	int		win_width;
+	int		win_height;
+	char		*tmp_arr;
+	int		n_collect;
+	int		fd;
+	t_player	player;
+	t_map		map;
+	t_mlx		mlx;
+	t_img		img;
+	t_img		sprite;
+	t_img		tx_wall;
+	t_img		tx_pl;
+	t_img		tx_item;
+	t_img		tx_exit;
+	t_img		tx_floor;
 }	t_game;
 
-int				ft_exit(char *str);
-int				ft_check_extension(char *path, char *ext);
-int				found_wall(int x, int y, t_game *gm);
-int				found_collect(int x, int y, t_game *gm);
-int				found_exit(int x, int y, t_game *gm);
-int				clear_config(t_game **gm);
-int				clear_window(t_game *gm);
+int			ft_exit(char *str);
+int			ft_check_extension(char *path, char *ext);
+int			found_wall(int x, int y, t_game *gm);
+int			found_collect(int x, int y, t_game *gm);
+int			found_exit(int x, int y, t_game *gm);
+int			clear_config(t_game **gm);
+int			clear_window(t_game *gm);
 void			player_update(t_game *gm);
 void			check_cepp(t_game *gm, int *ch_list, int i, int j);
-int				exit_game(t_game *gm, ...);
-int				exit_cross(t_game *gm);
+int			exit_game(t_game *gm, ...);
+int			exit_cross(t_game *gm);
 void			get_map_size(char *map_path, t_game *gm);
-int				get_next_line(const int fd, char **line);
-int				read_map(t_game *gm);
+int			get_next_line(const int fd, char **line);
+int			read_map(t_game *gm);
 void			setup(t_game *gm, char *map_path);
-int				map_init(t_map *map, int x, int y);
-int				key_release(int keycode, t_game *gm);
-int				key_press(int keycode, t_game *gm);
-int				create_win(t_game *gm);
+int			map_init(t_map *map, int x, int y);
+int			key_release(int keycode, t_game *gm);
+int			key_press(int keycode, t_game *gm);
+int			create_win(t_game *gm);
 void			my_mlx_pixel_put(t_img *data, int x, int y, int color);
-unsigned int	mlx_get_color(t_img *data, int x, int y);
+unsigned int		mlx_get_color(t_img *data, int x, int y);
 void			set_tile_size(t_game *gm);
 void			loadtextures1(t_game *gm);
 void			loadtextures2(t_game *gm);
@@ -155,8 +155,8 @@ void			draw_tile(t_game *gm, int i, int j);
 void			selectsprite(t_game *gm, int i, int j);
 void			putspritepixel(t_game *gm, int i, int j);
 void			putmoves(t_game *gm);
-int				render_player(t_game *gm);
-int				render_map(t_game *gm);
+int			render_player(t_game *gm);
+int			render_map(t_game *gm);
 void			char_arr_free_null(char *arr);
 void			int_arr_free_null(int *arr);
 void			find_obstacle(int x, int y, t_game *gm);
